@@ -1,0 +1,26 @@
+name: Release
+#production.yaml
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    env:
+      SUPABASE_ACCESS_TOKEN: sbp_009133ae8a0f3a16a113bcb9bb45e822f94b4d3f
+      # SUPABASE_DB_PASSWORD: MABcWlohQrn2vGoQ
+      # SUPABASE_PROJECT_ID: ugihqxcaquwzqqugbqvu
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      # - run: supabase link --project-ref $SUPABASE_PROJECT_ID
+      - run: supabase db push --db-url postgresql://postgres:postgres@172.25.19.32:54322/postgres
